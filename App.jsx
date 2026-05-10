@@ -3,34 +3,69 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-import { useRef } from "react";
+import { useReducer, useEffect } from "react";
+function loadCount() {
+  const saved = localStorage.getItem("count");
+
+  return saved ? Number(saved) : 0;
+}
+function saveCount(count) {
+  localStorage.setItem("count", count);
+}
+
+const initialState = {
+  count: loadCount(),
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "INCREMENT":
+      return { count: state.count + 1 };
+
+    case "DECREMENT":
+      return { count: state.count - 1 };
+
+    case "RESET":
+      return { count: 0 };
+
+    default:
+      return state;
+  }
+}
 
 function App() {
-  const inputRef = useRef(null);
-  const handleFocus = () => {
-    inputRef.current.focus();
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    saveCount(state.count);
+  }, [state.count]);
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>useRef Example</h1>
+      <h1>Counter with localStorage</h1>
 
-      <input
-        ref={inputRef}
-        type="text"
-        placeholder="Enter text..."
-        style={{
-          padding: "10px",
-          marginRight: "10px",
-        }}
-      />
+      <h2>Count: {state.count}</h2>
 
-      <button onClick={handleFocus}>
-        Focus
+      <button
+        onClick={() => dispatch({ type: "INCREMENT" })}
+      >
+        Increment
+      </button>
+
+      <button
+        onClick={() => dispatch({ type: "DECREMENT" })}
+        style={{ marginLeft: "10px" }}
+      >
+        Decrement
+      </button>
+
+      <button
+        onClick={() => dispatch({ type: "RESET" })}
+        style={{ marginLeft: "10px" }}
+      >
+        Reset
       </button>
     </div>
   );
 }
 
 export default App;
-
