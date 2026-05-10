@@ -3,50 +3,30 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-import { useReducer } from "react";
-const initialState = {
-  count: 0,
-};
-function reducer(state, action) {
-  switch (action.type) {
-    case "INCREMENT":
-      return { count: state.count + 1 };
-
-    case "DECREMENT":
-      return { count: state.count - 1 };
-
-    case "RESET":
-      return { count: 0 };
-
-    default:
-      return state;
-  }
-}
+import { useRef } from "react";
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const inputRef = useRef(null);
+  const handleFocus = () => {
+    inputRef.current.focus();
+  };
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Counter Using useReducer</h1>
+      <h1>useRef Example</h1>
 
-      <h2>Count: {state.count}</h2>
-      <button
-        onClick={() => dispatch({ type: "INCREMENT" })}
-      >
-        Increment
-      </button>
-      <button
-        onClick={() => dispatch({ type: "DECREMENT" })}
-        style={{ marginLeft: "10px" }}
-      >
-        Decrement
-      </button>
-      <button
-        onClick={() => dispatch({ type: "RESET" })}
-        style={{ marginLeft: "10px" }}
-      >
-        Reset
+      <input
+        ref={inputRef}
+        type="text"
+        placeholder="Enter text..."
+        style={{
+          padding: "10px",
+          marginRight: "10px",
+        }}
+      />
+
+      <button onClick={handleFocus}>
+        Focus
       </button>
     </div>
   );
