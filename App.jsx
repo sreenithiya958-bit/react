@@ -4,52 +4,107 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import { useReducer, useEffect } from "react";
-
+import TextInput from "./TextInput";
 
 function App() {
-  const productsData = [
-    { id: 1, name: "Laptop" },
-    { id: 2, name: "Mobile" },
-    { id: 3, name: "Headphone" },
-    { id: 4, name: "Keyboard" },
-  ];
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  const [search, setSearch] = useState("");
-  const [hoveredId, setHoveredId] = useState(null);
+  const [submittedData, setSubmittedData] = useState(null);
 
-  // Filter products
-  const filteredProducts = productsData.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
-  );
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Email validation
+  const emailValid = formData.email.includes("@");
+
+  // Form validation
+  const isFormValid =
+    formData.name &&
+    formData.email &&
+    formData.password &&
+    emailValid;
+
+  // Submit form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setSubmittedData(formData);
+  };
+
+  // Clear form
+  const handleClear = () => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+    });
+
+    setSubmittedData(null);
+  };
 
   return (
     <div className="container">
-      <h1>Product List</h1>
+      <h1>Signup Form</h1>
 
-      {/* Filter Input */}
-      <input
-        type="text"
-        placeholder="Search product..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <form onSubmit={handleSubmit}>
+        <TextInput
+          label="Name"
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Enter name"
+        />
 
-      {/* Conditional Rendering */}
-      {filteredProducts.length === 0 ? (
-        <p>No products available</p>
-      ) : (
-        <ul>
-          {filteredProducts.map((product) => (
-            <li
-              key={product.id}
-              className={hoveredId === product.id ? "active" : ""}
-              onMouseEnter={() => setHoveredId(product.id)}
-              onMouseLeave={() => setHoveredId(null)}
-            >
-              {product.name}
-            </li>
-          ))}
-        </ul>
+        <TextInput
+          label="Email"
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Enter email"
+        />
+
+        <TextInput
+          label="Password"
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Enter password"
+        />
+
+        {!emailValid && formData.email && (
+          <p className="error">Invalid Email</p>
+        )}
+
+        <button type="submit" disabled={!isFormValid}>
+          Submit
+        </button>
+
+        <button type="button" onClick={handleClear}>
+          Clear
+        </button>
+      </form>
+
+      {/* Preview Panel */}
+      {submittedData && (
+        <div className="preview">
+          <h2>Preview</h2>
+
+          <p>Name: {submittedData.name}</p>
+          <p>Email: {submittedData.email}</p>
+          <p>Password: {submittedData.password}</p>
+        </div>
       )}
     </div>
   );
