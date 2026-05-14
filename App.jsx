@@ -4,66 +4,53 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import { useReducer, useEffect } from "react";
-function loadCount() {
-  const saved = localStorage.getItem("count");
 
-  return saved ? Number(saved) : 0;
-}
-function saveCount(count) {
-  localStorage.setItem("count", count);
-}
-
-const initialState = {
-  count: loadCount(),
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "INCREMENT":
-      return { count: state.count + 1 };
-
-    case "DECREMENT":
-      return { count: state.count - 1 };
-
-    case "RESET":
-      return { count: 0 };
-
-    default:
-      return state;
-  }
-}
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  useEffect(() => {
-    saveCount(state.count);
-  }, [state.count]);
+  const productsData = [
+    { id: 1, name: "Laptop" },
+    { id: 2, name: "Mobile" },
+    { id: 3, name: "Headphone" },
+    { id: 4, name: "Keyboard" },
+  ];
+
+  const [search, setSearch] = useState("");
+  const [hoveredId, setHoveredId] = useState(null);
+
+  // Filter products
+  const filteredProducts = productsData.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Counter with localStorage</h1>
+    <div className="container">
+      <h1>Product List</h1>
 
-      <h2>Count: {state.count}</h2>
+      {/* Filter Input */}
+      <input
+        type="text"
+        placeholder="Search product..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-      <button
-        onClick={() => dispatch({ type: "INCREMENT" })}
-      >
-        Increment
-      </button>
-
-      <button
-        onClick={() => dispatch({ type: "DECREMENT" })}
-        style={{ marginLeft: "10px" }}
-      >
-        Decrement
-      </button>
-
-      <button
-        onClick={() => dispatch({ type: "RESET" })}
-        style={{ marginLeft: "10px" }}
-      >
-        Reset
-      </button>
+      {/* Conditional Rendering */}
+      {filteredProducts.length === 0 ? (
+        <p>No products available</p>
+      ) : (
+        <ul>
+          {filteredProducts.map((product) => (
+            <li
+              key={product.id}
+              className={hoveredId === product.id ? "active" : ""}
+              onMouseEnter={() => setHoveredId(product.id)}
+              onMouseLeave={() => setHoveredId(null)}
+            >
+              {product.name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
