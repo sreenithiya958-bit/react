@@ -14,22 +14,64 @@ import Mode from "./Mode";
 //   );
 // }
 
-import Counter from "./Counter";
-import Focus from "./Focus";
-import Storage from "./Storage";
+// function App() {
+//   return (
+//     <div>
+//       <Counter />
+
+//       <hr />
+
+//       <Focus />
+
+//       <hr />
+
+//       <Storage />
+//     </div>
+//   );
+// }
+
 
 function App() {
+
+  const products = [
+    { id: 1, name: "Laptop" },
+    { id: 2, name: "Mobile" },
+    { id: 3, name: "Watch" }
+  ];
+
+  const [search, setSearch] = useState("");
+
+  const filteredProducts = products.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div>
-      <Counter />
 
-      <hr />
+      <h1>Product List</h1>
 
-      <Focus />
+      <input
+        type="text"
+        placeholder="Search product"
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-      <hr />
+      {
+        filteredProducts.length > 0 ? (
 
-      <Storage />
+          filteredProducts.map((item) => (
+            <div key={item.id} className="box">
+              {item.name}
+            </div>
+          ))
+
+        ) : (
+
+          <h2>No products available</h2>
+
+        )
+      }
+
     </div>
   );
 }
