@@ -6,10 +6,30 @@ import './App.css'
 import { useReducer, useEffect } from "react";
 import Mode from "./Mode";
 
+// function App() {
+//   return (
+//     <div>
+//       <Mode />
+//     </div>
+//   );
+// }
+
+import Counter from "./Counter";
+import Focus from "./Focus";
+import Storage from "./Storage";
+
 function App() {
   return (
     <div>
-      <Mode />
+      <Counter />
+
+      <hr />
+
+      <Focus />
+
+      <hr />
+
+      <Storage />
     </div>
   );
 }
