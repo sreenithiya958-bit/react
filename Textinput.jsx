@@ -1,19 +1,12 @@
-function TextInput({ label, type, value, onChange, placeholder }) {
+function TextInput({ type, placeholder, value, onChange }) {
+
   return (
-    <div>
-      <label>{label}</label>
-      <br />
-
-      <input
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
-
-      <br />
-      <br />
-    </div>
+    <input
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
   );
 }
 
