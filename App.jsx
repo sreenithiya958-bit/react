@@ -78,95 +78,105 @@ import Mode from "./Mode";
 
 // export default App;
 
-import TextInput from "./TextInput";
+// import TextInput from "./TextInput";
+
+// function App() {
+
+//   const [name, setName] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+
+//   const [data, setData] = useState(null);
+
+//   function handleSubmit(e) {
+
+//     e.preventDefault();
+
+//     setData({
+//       name,
+//       email,
+//       password
+//     });
+//   }
+
+//   function clearForm() {
+//     setName("");
+//     setEmail("");
+//     setPassword("");
+//   }
+
+//   const isValid =
+//     name !== "" &&
+//     email.includes("@") &&
+//     password !== "";
+
+//   return (
+//     <div>
+
+//       <h1>Signup Form</h1>
+
+//       <form onSubmit={handleSubmit}>
+
+//         <TextInput
+//           type="text"
+//           placeholder="Enter Name"
+//           value={name}
+//           onChange={(e) => setName(e.target.value)}
+//         />
+
+//         <br /><br />
+
+//         <TextInput
+//           type="email"
+//           placeholder="Enter Email"
+//           value={email}
+//           onChange={(e) => setEmail(e.target.value)}
+//         />
+
+//         <br /><br />
+
+//         <TextInput
+//           type="password"
+//           placeholder="Enter Password"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//         />
+
+//         <br /><br />
+
+//         <button type="submit" disabled={!isValid}>
+//           Submit
+//         </button>
+
+//         <button type="button" onClick={clearForm}>
+//           Clear
+//         </button>
+
+//       </form>
+
+//       <hr />
+
+//       <h2>Preview</h2>
+
+//       {data && (
+//         <div>
+//           <p>Name: {data.name}</p>
+//           <p>Email: {data.email}</p>
+//           <p>Password: {data.password}</p>
+//         </div>
+//       )}
+
+//     </div>
+//   );
+// }
+
+// export default App;
+import UserTask from "./UserTask";
 
 function App() {
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [data, setData] = useState(null);
-
-  function handleSubmit(e) {
-
-    e.preventDefault();
-
-    setData({
-      name,
-      email,
-      password
-    });
-  }
-
-  function clearForm() {
-    setName("");
-    setEmail("");
-    setPassword("");
-  }
-
-  const isValid =
-    name !== "" &&
-    email.includes("@") &&
-    password !== "";
-
   return (
-    <div>
-
-      <h1>Signup Form</h1>
-
-      <form onSubmit={handleSubmit}>
-
-        <TextInput
-          type="text"
-          placeholder="Enter Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <br /><br />
-
-        <TextInput
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <br /><br />
-
-        <TextInput
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <br /><br />
-
-        <button type="submit" disabled={!isValid}>
-          Submit
-        </button>
-
-        <button type="button" onClick={clearForm}>
-          Clear
-        </button>
-
-      </form>
-
-      <hr />
-
-      <h2>Preview</h2>
-
-      {data && (
-        <div>
-          <p>Name: {data.name}</p>
-          <p>Email: {data.email}</p>
-          <p>Password: {data.password}</p>
-        </div>
-      )}
-
-    </div>
+      <UserTask />
+  
   );
 }
 
