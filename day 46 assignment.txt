@@ -1,0 +1,55 @@
+1. radio
+
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material";
+import { useState } from "react";
+
+function Muiradiodemo(){
+    const [gender,setGender]=useState('');
+    function handleGender(event){
+        setGender(event.target.value)
+    }
+    return(<>
+    <FormControl>
+        <FormLabel>Select Gender</FormLabel>
+        <RadioGroup onChange={handleGender}>
+            <FormControlLabel control={<Radio/>} label='male' value='male'></FormControlLabel>
+            <FormControlLabel control={<Radio/>} label='female' value='female'></FormControlLabel>
+        </RadioGroup>
+    </FormControl>
+    <Typography>
+        Gender selected is {gender}
+    </Typography>
+    </>)
+}
+export default Muiradiodemo;
+
+2. darkmode
+
+import { Box, FormControlLabel, Switch, Typography } from "@mui/material";
+import { useState } from "react";
+
+
+function MuiSwitchDemo(){
+    const [dark,setDark]=useState(false);
+    const [bColor,setBColor]=useState('white');
+    function handleDark(){
+    setDark(!dark)
+    // setBColor(bColor === 'white' ? 'black' : 'white')
+    }
+    return(<>
+    {/* <Box sx={{backgroundColor:bColor,p:5}}></Box> */}
+    <div style={{backgroundColor:dark ? 'black':'white',color:dark ? 'white':'black',height:'100vh'}}>
+        <FormControlLabel
+            control={<Switch 
+                checked={dark}
+                onChange={handleDark}/>}
+            label="Dark Mode">
+        </FormControlLabel>
+        <Typography>
+            {dark?"ON":"OFF"}
+        </Typography>
+        </div>
+        </>
+    )
+}
+export default MuiSwitchDemo;

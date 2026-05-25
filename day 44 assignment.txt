@@ -1,0 +1,82 @@
+import React from "react";
+import {
+  ThemeProvider,
+  createTheme,
+} from "@mui/material/styles";
+
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+} from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#1976d2",
+    },
+  },
+});
+
+function Matui() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="sm">
+        
+        <Box
+          sx={{
+            mt: 5,
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
+          <Typography variant="h4">
+            Login Form
+          </Typography>
+
+          <TextField
+            label="Email"
+            variant="outlined"
+          />
+
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+          />
+
+          <Button variant="contained">
+            Login
+          </Button>
+        </Box>
+
+        <Card sx={{ mt: 5 }}>
+          <CardContent>
+            <Typography variant="h5">
+              Product Name
+            </Typography>
+
+            <Typography variant="body1">
+              This is a sample product card using MUI.
+            </Typography>
+          </CardContent>
+
+          <CardActions>
+            <Button variant="contained">
+              Buy Now
+            </Button>
+          </CardActions>
+        </Card>
+
+      </Container>
+    </ThemeProvider>
+  );
+}
+
+export default Matui;
