@@ -1,0 +1,27 @@
+create database gloceryDB;
+use gloceryDB;
+
+create table products(
+    id int primary key,
+    name varchar(50),
+    price decimal(10,2));
+    
+alter table products
+add stock int;
+
+alter table products
+rename column price to unit_price;
+
+insert into products(id,name,unit_price,stock)values
+      (1, 'laptop' , 55000, 10),
+      (2, 'mouse' , 1000, 20),
+      (3, 'keyboard' , 1200, 1),
+      (4, 'mobile' , 15000, 5),
+      (5, 'printer' , 5000, 20);
+      
+update products
+set stock = 20
+where id = 1;
+
+delete from products
+where id = 5;

@@ -1,0 +1,33 @@
+create database companyDB;
+use companyDB;
+
+create table employees (
+    id int primary key,
+    name varchar(50) not null,
+    email varchar (100),
+    salary decimal (10,2) default 30000 );
+
+alter table employees
+add constraint unique_email unique(email);
+
+insert into employees (id,name,email,salary)values
+  (1, 'nithiya' , 'nithiy@gmail.com' , 35000),
+  (2, 'anisha' , 'anisha@gamil.com' , 40000),
+  (3, 'priya' , 'priya@gamil.com' , 30000),
+  (4, 'kavin' , 'kavin@gamil.com' , 45000),
+  (5, 'arun' , 'arun@gamil.com' , 50000);
+  
+insert into employees (id,name,email,salary)values
+  (6, 'suresh' , 'nithiy@gmail.com' , 38000);
+  
+drop table employees;
+
+create table employees(
+    id int primary key,
+    name varchar(50) not null,
+    email varchar (100) unique,
+    salary decimal (10,2) default 30000,
+    check (salary > 0));
+
+insert into employees(id,name,email)values
+   (2, 'vasatha', 'vasatha@gmail.com');
