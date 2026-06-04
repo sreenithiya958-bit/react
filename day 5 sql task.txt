@@ -1,0 +1,24 @@
+-- day 5
+SELECT COUNT(*) AS total_orders FROM orders;
+
+
+SELECT SUM(price) AS total_price FROM orders;
+
+
+SELECT AVG(price) AS avg_price FROM orders;
+
+SELECT product_name,
+       SUM(quantity * price) AS total_sales
+FROM orders
+GROUP BY product_name;
+
+SELECT MAX(price) AS max_price,
+       MIN(price) AS min_price
+FROM orders;
+
+
+SELECT product_name,
+       SUM(quantity * price) AS total_sales
+FROM orders
+GROUP BY product_name
+ORDER BY total_sales DESC;
