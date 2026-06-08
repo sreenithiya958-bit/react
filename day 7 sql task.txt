@@ -1,0 +1,85 @@
+create database day7_day8_assignment;
+
+use day7_day8_assignment;
+
+create table customers (
+    customer_id int primary key,
+    customer_name varchar(50),
+    city varchar(50)
+);
+
+create table orders (
+    order_id int primary key,
+    customer_id int,
+    order_date date,
+    amount decimal(10,2),
+    foreign key (customer_id) references customers(customer_id)
+);
+
+insert into customers values
+(1,'john','chennai'),
+(2,'priya','coimbatore'),
+(3,'rahul','madurai'),
+(4,'anita','salem'),
+(5,'karthik','trichy');
+
+insert into orders values
+(101,1,'2026-06-01',5000),
+(102,2,'2026-06-02',3000),
+(103,1,'2026-06-03',2500),
+(104,3,'2026-06-04',4000),
+(105,5,'2026-06-05',3500);
+
+select customers.customer_name,
+       orders.order_id,
+       orders.amount
+from customers
+inner join orders
+on customers.customer_id = orders.customer_id;
+
+select customers.customer_name,
+       orders.order_id,
+       orders.amount
+from customers
+left join orders
+on customers.customer_id = orders.customer_id;
+
+create table customer (
+    customerid int primary key,
+    customername varchar(50)
+);
+
+create table product (
+    productid int primary key,
+    productname varchar(50)
+);
+
+create table orderdetails (
+    orderid int,
+    customerid int,
+    productid int,
+    primary key (orderid, productid)
+);
+
+create table department (
+    deptid int primary key,
+    deptname varchar(50)
+);
+
+create table employee (
+    empid int primary key,
+    empname varchar(50),
+    deptid int,
+    foreign key (deptid) references department(deptid)
+);
+
+insert into department values
+(1,'hr'),
+(2,'it');
+
+insert into employee values
+(101,'ravi',1),
+(102,'meena',2);
+
+select *from department;
+select *from employee;
