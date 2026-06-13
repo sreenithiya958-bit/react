@@ -1,0 +1,45 @@
+-- Create table
+CREATE TABLE sales (
+    id INT PRIMARY KEY,
+    product VARCHAR(50),
+    amount DECIMAL(10,2)
+);
+
+-- Insert sample data
+INSERT INTO sales (id, product, amount) VALUES
+(1, 'Laptop', 800),
+(2, 'Phone', 500),
+(3, 'Tablet', 500),
+(4, 'Monitor', 300),
+(5, 'Keyboard', 100);
+
+-- CTE + All window functions combined
+WITH avg_sales AS (
+    SELECT AVG(amount) AS avg_amount
+    FROM sales
+)
+SELECT 
+    s.id,
+    s.product,
+    s.amount,
+
+    -- Row number (no ties)
+    ROW_NUMBER() OVER (ORDER BY s.amount DESC) AS row_num,
+
+    -- Rank (with gaps for ties)
+    RANK() OVER (ORDER BY s.amount DESC) AS rank_val,
+
+    -- Dense rank (no gaps)
+    DENSE_RANK() OVER (ORDER BY s.amount DESC) AS dense_rank_val,
+
+    -- Running total
+    SUM(s.amount) OVER (ORDER BY s.amount DESC) AS running_total,
+
+    -- Above average flag
+    CASE 
+        WHEN s.amount > a.avg_amount THEN 'Above Avg'
+        ELSE 'Below/Equal Avg'
+    END AS avg_comparison
+
+FROM sales s
+CROSS JOIN avg_sales a;

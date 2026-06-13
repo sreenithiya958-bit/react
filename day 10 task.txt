@@ -1,0 +1,87 @@
+create database assignment10;
+use assignment10;
+
+create table employee (
+    id int primary key,
+    name varchar(50),
+    salary decimal(10,2)
+);
+
+create table product (
+    product_id int primary key,
+    product_name varchar(50),
+    stock int
+);
+
+create table orders (
+    order_id int primary key,
+    product_id int,
+    quantity int
+);
+
+create table users (
+    id int primary key,
+    name varchar(50),
+    role varchar(20)
+);
+
+delimiter //
+
+create procedure insertemployee(
+    in p_id int,
+    in p_name varchar(50),
+    in p_salary decimal(10,2)
+)
+begin
+    insert into employee
+    values (p_id, p_name, p_salary);
+end //
+
+delimiter //
+create procedure updatesalary(
+    in p_id int,
+    in p_salary decimal(10,2)
+)
+begin
+    update employee
+    set salary = p_salary
+    where id = p_id;
+end //
+
+delimiter //
+create procedure getemployees()
+begin
+    select * from employee;
+end //
+
+delimiter //
+create trigger updatestock
+after insert on orders
+for each row
+begin
+    update product
+    set stock = stock - new.quantity
+    where product_id = new.product_id;
+end //
+
+delimiter //
+create trigger preventlastadmindelete
+before delete on users
+for each row
+begin
+    if old.role = 'admin' and
+       (select count(*) from users where role = 'admin') = 1
+    then
+        signal sqlstate '45000'
+        set message_text = 'cannot delete the last admin user';
+    end if;
+end //
+
+delimiter ;
+
+call insertemployee(101, 'rahul', 35000);
+call updatesalary(101, 40000);
+call getemployees();
+
+drop procedure getemployees;
+drop trigger updatestock;
